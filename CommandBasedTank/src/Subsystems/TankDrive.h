@@ -16,6 +16,7 @@ private:
 
 	// 0 = Right1, 1 = Right2, 2 = Left1, 3 = Left2
 	double Motors[4];
+	double Left, Right, LTrigger, RTrigger;
 	//XboxController *Controller;
 
 public:
@@ -23,11 +24,8 @@ public:
 	void InitDefaultCommand();
 	void DriveLeftMotors(int LAxis);
 	void DriveRightMotors(int RAxis);
-	double* DriveForward(int TriggerAxis);
-	double* DriveBackward(int TriggerAxis);
-	double* FourWheelTurn(int JoyAxis, int TriggerAxis);
-	double* TwoWheelTurn(int JoyAxis);
-
+	double* DriveValues(int LAxis, int RAxis, int RTriggerAxis, int LTriggerAxis);
+	void DriveMotors(double DriveValues[4]);
 
 };
 

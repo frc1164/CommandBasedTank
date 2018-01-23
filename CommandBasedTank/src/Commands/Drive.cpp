@@ -18,8 +18,8 @@ void Drive::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void Drive::Execute() {
 
-	MyTankDrive.DriveLeftMotors(LJoyChannel);
-	MyTankDrive.DriveRightMotors(RJoyChannel);
+	// Drives the robot and gets the values for driving forward, backwards, and slowly turning
+	MyTankDrive.DriveMotors(MyTankDrive.DriveValues(LJoyChannel, RJoyChannel, RTriggerChannel, LTriggerChannel));
 
 }
 
