@@ -1,9 +1,20 @@
-#include "ScoreScale.h"
+#include "ScoreSwitch.h"
+#include "AutoFoward.h"
+#include "AutoTurn.h"
+#include "Score.h"
 
-ScoreScale::ScoreScale() {
-	AddSequential(new AutoForward(6,.5));
-	AddSequential(new AutoTurn(45));
-	AddSequential(new Score(5));
+ScoreSwitch::ScoreSwitch(bool isRight) {
+	if (isRight){
+	AddSequential(new AutoForward(10,.5));
+	//AddSequential(new AutoTurn(45));
+	//AddSequential(new Score(1));
+	}
+	else {
+		AddSequential(new AutoForward(10,.5));
+	//	AddSequential(new AutoTurn(-45));
+	//	AddSequential(new Score(1));
+	}
+
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());

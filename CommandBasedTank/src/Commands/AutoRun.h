@@ -1,11 +1,11 @@
-#ifndef ScoreScale_H
-#define ScoreScale_H
+#ifndef AutoRun_H
+#define AutoRun_H
 
 #include <Commands/CommandGroup.h>
 
-class ScoreScale : public CommandGroup {
+class AutoRun : public CommandGroup {
 public:
-	ScoreScale();
+	AutoRun;
 };
 
 #endif  // ScoreScale_H

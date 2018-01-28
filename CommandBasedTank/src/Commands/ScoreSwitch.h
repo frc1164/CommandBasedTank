@@ -1,11 +1,11 @@
-#ifndef ScoreScale_H
-#define ScoreScale_H
+#ifndef ScoreSwitch_H
+#define ScoreSwitch_H
 
 #include <Commands/CommandGroup.h>
 
-class ScoreScale : public CommandGroup {
+class ScoreSwitch : public CommandGroup {
 public:
-	ScoreScale();
+	ScoreSwitch();
 };
 
 #endif  // ScoreScale_H

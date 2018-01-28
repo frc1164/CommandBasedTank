@@ -1,9 +1,12 @@
-#include "ScoreScale.h"
+#include "MidSwitch.h"
+#include "AutoForward.h"
+#include "Forward.h"
 
-ScoreScale::ScoreScale() {
-	AddSequential(new AutoForward(6,.5));
-	AddSequential(new AutoTurn(45));
-	AddSequential(new Score(5));
+MidSwitch::MidSwitch() {
+	AddSequential(new AutoForward(9,.5));
+	//AddSequential(new Score(5));
+
+
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());

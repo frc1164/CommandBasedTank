@@ -1,9 +1,8 @@
-#include "ScoreScale.h"
+#include "AutoRun.h"
+#include "AutoForward.h"
 
-ScoreScale::ScoreScale() {
-	AddSequential(new AutoForward(6,.5));
-	AddSequential(new AutoTurn(45));
-	AddSequential(new Score(5));
+AutoForward::AutoForward() {
+	AddSequential(new AutoForward(11,.5));
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());

@@ -16,6 +16,10 @@
 #include "Commands/MyAutoCommand.h"
 
 #include "RobotMap.h"
+#include "Commands/ScoreScale.h"
+#include "Commands/ScoreSwitch.h"
+#include "Commands/AutoRun.h"
+#include "Commands/MidSwitch.h"
 
 class Robot : public frc::TimedRobot {
 public:
@@ -61,9 +65,9 @@ public:
 		GetInstance().GetGameSpecificMessage();
 		if (autoSelected == "Pos1") {
 			if(gameData[0] == 'L') {
-				ScoreSwitch(L);
+				ScoreSwitch(false);
 			} if else (gameData[1] == 'L'){
-				ScoreScale (L);
+				ScoreScale (false);
 			} else{
 				AutoRun();
 			}
@@ -75,9 +79,9 @@ public:
 			}
 		} else {
 			if(gameData[0] == 'R') {
-				ScoreSwitch(R);
+				ScoreSwitch(true);
 			} if else (gameData[1] == 'R'){
-				ScoreScale (R);
+				ScoreScale (true);
 			} else{
 				AutoRun();
 			}

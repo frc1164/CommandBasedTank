@@ -9,6 +9,11 @@ TankDrive::TankDrive() : Subsystem("TankDrive") {
 	Right1 = new Victor(kRight1);
 	Right2 = new Victor(kRight2);
 	Stick = new Joystick(0);
+
+	Left = 0;
+	Right = 0;
+	RTrigger = 0;
+	LTrigger = 0;
 }
 
 void TankDrive::InitDefaultCommand() {
@@ -31,61 +36,39 @@ void TankDrive::DriveRightMotors(int RAxis){
 	Right2->Set(Stick->GetRawAxis(RAxis));
 }
 
-double* TankDrive::DriveForward(int TriggerAxis){
+double* TankDrive::DriveValues(int LAxis, int RAxis, int RTriggerAxis, int LTriggerAxis){
 
-	double vRight1 = Stick->GetRawAxis(TriggerAxis);
-	double vRight2 = Stick->GetRawAxis(TriggerAxis);
-	double vLeft1 = Stick->GetRawAxis(TriggerAxis);
-	double vLeft2 = Stick->GetRawAxis(TriggerAxis);
+	RTrigger = Stick->GetRawAxis(RTriggerAxis);
+	LTrigger = Stick->GetRawAxis(LTriggerAxis);
+	Left = Stick->GetRawAxis(LAxis);
+	Right = Stick->GetRawAxis(RAxis);
 
-	Motors[0] = vRight1;
-	Motors[1] = vRight2;
-	Motors[2] = vLeft1;
-	Motors[3] = vLeft2;
+	//Drive forward and backward
+	Motors[0] = RTrigger - LTrigger;
+	Motors[1] = RTrigger - LTrigger;
+	Motors[2] = RTrigger - LTrigger;
+	Motors[3] = RTrigger - LTrigger;
 
-	return Motors;
-}
+	//Turning slowly (Assuming LAxis is the slow turning axis)
+	Motors[0] = (1 - Right) * Motors[0];
+	Motors[1] = (1 - Right) * Motors[1];
+	Motors[2] = (1 + Right) * Motors[2];
+	Motors[3] = (1 + Right) * Motors[3];
 
-double* TankDrive::DriveBackward(int TriggerAxis){
-
-	double vRight1 = -(Stick->GetRawAxis(TriggerAxis));
-	double vRight2 = -(Stick->GetRawAxis(TriggerAxis));
-	double vLeft1 = -(Stick->GetRawAxis(TriggerAxis));
-	double vLeft2 = -(Stick->GetRawAxis(TriggerAxis));
-
-	Motors[0] = vRight1;
-	Motors[1] = vRight2;
-	Motors[2] = vLeft1;
-	Motors[3] = vLeft2;
+	//Turning quickly (Assuming RAxis is the fast turning axis)
+	Motors[0] = Motors[0] - (0.5 * Left);
+	Motors[1] = Motors[1] - (0.5 * Left);
+	Motors[2] = Motors[2] + (0.5 * Left);
+	Motors[3] = Motors[3] + (0.5 * Left);
 
 	return Motors;
 }
 
-double* TankDrive::FourWheelTurn(int JoyAxis, int TriggerAxis){
-
-	if (Stick->GetRawAxis(TriggerAxis) > - 0.1 && Stick->GetRawAxis(TriggerAxis) < 0.1){
-
-	int JoystickValue = Stick->GetRawAxis(JoyAxis);
-
-	double vRight1 = -JoystickValue;
-	double vRight2 = -JoystickValue;
-	double vLeft1 = JoystickValue;
-	double vLeft2 = JoystickValue;
-
-	Motors[0] = vRight1;
-	Motors[1] = vRight2;
-	Motors[2] = vLeft1;
-	Motors[3] = vLeft2;
-	}
-
-	return Motors;
+void TankDrive::DriveMotors(double DriveValues[4]) {
+	Right1->Set(DriveValues[0]);
+	Right2->Set(DriveValues[1]);
+	Left1->Set(DriveValues[2]);
+	Left2->Set(DriveValues[3]);
 }
 
-double* TankDrive::TwoWheelTurn(int JoyAxis){
-	int JoystickValue = Stick->GetRawAxis(JoyAxis);
 
-	Right1->Set(1.5-JoystickValue);
-	Right2->Set(1.5-JoystickValue);
-	Left1->Set(1.5+JoystickValue);
-	Left2->Set(1.5+JoystickValue);
-}

@@ -35,6 +35,8 @@ constexpr int kRight2 = 4;
 
 constexpr int LJoyChannel = 1;
 constexpr int RJoyChannel = 3;
+constexpr int RTriggerChannel = 0;
+constexpr int LTriggerChannel = 2;
 
 static TankDrive MyTankDrive;
 
